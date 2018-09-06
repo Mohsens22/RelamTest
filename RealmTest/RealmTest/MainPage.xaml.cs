@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using RealmTest.Core.Services.Backgrounds;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -24,13 +25,17 @@ namespace RealmTest
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public Realm Instance;
         public MainPage()
         {
             this.InitializeComponent();
         }
-        
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await BackgroundHelper.RegisterBackgroundServices();
+            base.OnNavigatedTo(e);
+        }
+
     }
 
-    
+
 }

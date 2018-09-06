@@ -20,7 +20,7 @@ namespace RealmTest.Core.Services.Dogs
             repo = new GenericRepository<Dog>(_instance);
             r = new Random();
         }
-        void CreateItems()
+        public void CreateItems()
         {
             for (int i = 0; i < 300; i++)
             {

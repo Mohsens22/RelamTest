@@ -7,43 +7,29 @@ using Windows.ApplicationModel.Background;
 
 namespace RealmTest.Core.Services.Backgrounds
 {
-    class BackgroundHelper
+    public class BackgroundHelper
     {
         public static async Task RegisterBackgroundServices()
         {
             var req = await BackgroundExecutionManager.RequestAccessAsync();
             if (req != BackgroundAccessStatus.DeniedByUser && req != BackgroundAccessStatus.DeniedBySystemPolicy)
             {
-                if (!BackgroundTaskRegistration.AllTasks.Where(x => x.Value.Name == "DennaLiveTile").Any())
+                if (!BackgroundTaskRegistration.AllTasks.Where(x => x.Value.Name == "QuickAction").Any())
                 {
                     var LiveTileTask = new BackgroundTaskBuilder
                     {
-                        Name = "DennaLiveTile",
-                        TaskEntryPoint = "Denna.Services.Background.LiveTile",
+                        Name = "QuickAction",
+                        TaskEntryPoint = "RealmTest.Services.Background.QuickAction",
                         CancelOnConditionLoss = false
                     };
                     LiveTileTask.SetTrigger(new TimeTrigger(15, false));
                     var LiveTileTaskRegistration = LiveTileTask.Register();
                 }
-                if (!BackgroundTaskRegistration.AllTasks.Where(x => x.Value.Name == "DennaQuickAction").Any())
-                {
-                    var QuickActionTask = new BackgroundTaskBuilder()
-                    {
-                        Name = "DennaQuickAction",
-                        TaskEntryPoint = "Denna.Services.Background.QuickAction",
-                        CancelOnConditionLoss = false
-                    };
-
-                    QuickActionTask.SetTrigger(new ToastNotificationActionTrigger());
-                    var QuickActionTaskRegistration = QuickActionTask.Register();
-                }
-
-
             }
         }
         public static void DeleteBackgroundServices()
         {
-            var list = BackgroundTaskRegistration.AllTasks.Where(x => x.Value.Name == "DennaLiveTile" || x.Value.Name == "DennaQuickAction");
+            var list = BackgroundTaskRegistration.AllTasks.Where(x => x.Value.Name == "QuickAction");
             foreach (var item in list)
                 item.Value.Unregister(true);
         }

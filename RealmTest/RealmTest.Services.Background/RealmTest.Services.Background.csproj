@@ -114,6 +114,12 @@
       <Version>6.1.7</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RealmTest.Core\RealmTest.Core.csproj">
+      <Project>{97a65e0b-834f-4c49-8771-6d7036a4af39}</Project>
+      <Name>RealmTest.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

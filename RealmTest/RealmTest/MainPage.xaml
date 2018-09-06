@@ -6,12 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:VM="using:RealmTest.ViewModels"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <VM:MainVM />
+    </Page.DataContext>
 
     <ScrollViewer>
         <StackPanel>
-            <Button Content="Change" Width="400" Height="40" Click="Button_Click" />
-            <ListView x:Name="itemListView" ItemsSource="{x:Bind Dogz,Mode=TwoWay}">
+            <Button Content="Change" Width="400" Height="40" Command="{Binding SomeCommand}" />
+            <ListView x:Name="itemListView" ItemsSource="{Binding Dogz,Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:Name="SingleLineDataTemplate" >
                         <StackPanel Orientation="Horizontal" Height="44" Padding="12">

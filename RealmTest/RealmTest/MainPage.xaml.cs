@@ -22,70 +22,15 @@ namespace RealmTest
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page, INotifyPropertyChanged
+    public sealed partial class MainPage : Page
     {
         public Realm Instance;
         public MainPage()
         {
             this.InitializeComponent();
         }
-        IRealmCollection<Dog> _dogz;
-        public IRealmCollection<Dog> Dogz
-        {
-            get => _dogz;
-            set
-            {
-                if (_dogz != value)
-                {
-                    _dogz = value;
-                    if (PropertyChanged != null)
-                        PropertyChanged(this,
-                            new PropertyChangedEventArgs("Dogz"));
-                }
-            }
-        }
-        Random r = new Random();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            Instance = Realm.GetInstance();
-            if (!Instance.All<Dog>().AsRealmCollection().Any())
-            {
-                for (int i = 0; i < 500; i++)
-                {
-                    Instance.Write(() =>
-                    {
-                        var nx = r.Next(100);
-                        Instance.Add(new Dog() { Age = nx });
-                    });
-
-                }
-                for (int i = 0; i < 100; i++)
-                {
-                    Instance.Write(() =>
-                    {
-                        Instance.Add(new Dog() { Age = i });
-                    });
-                }
-            }
-
-            var nxt = r.Next(100);
-            Dogz = Instance.All<Dog>().Where(z => z.Age == nxt).AsRealmCollection();
-
-
-        }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var nxt = r.Next(100);
-            Dogz = Instance.All<Dog>().Where(z => z.Age == nxt).AsRealmCollection();
-        }
+        
     }
 
-    public class Dog : RealmObject
-    {
-        public int Age { get; set; }
-    }
+    
 }

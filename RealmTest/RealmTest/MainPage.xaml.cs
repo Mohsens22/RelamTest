@@ -54,7 +54,7 @@ namespace RealmTest
             Instance = Realm.GetInstance();
             if (!Instance.All<Dog>().AsRealmCollection().Any())
             {
-                for (int i = 0; i < 300; i++)
+                for (int i = 0; i < 500; i++)
                 {
                     Instance.Write(() =>
                     {
